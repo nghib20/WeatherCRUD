@@ -11,7 +11,7 @@ namespace WeatherCRUD.Model
         public long CityId { get; set; }
 
         [Column("temperature")]
-        public float TemperatureValue { get; set; }
+        public double TemperatureValue { get; set; }
         
         [Column("time")]
         public DateTime Time { get; set; }

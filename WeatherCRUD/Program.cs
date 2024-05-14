@@ -2,6 +2,7 @@ using Dapper;
 using MySqlConnector;
 using System.ComponentModel.DataAnnotations.Schema;
 using WeatherCRUD.Model;
+using WeatherCRUD.repository;
 
 SqlMapper.SetTypeMap(
     typeof(City),
@@ -24,29 +25,19 @@ SqlMapper.SetTypeMap(
                     .Any(attr => attr.Name == columnName))));
 //Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
 
-
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<ICityRepository, CityRepository>();
+builder.Services.AddScoped<ITemperatureRepository, TemperatureRepository>();
+
 var app = builder.Build();
 
-using var connection = new MySqlConnection("Server=localhost;Port=3306;User ID=root;Password=rootroot;Database=weather_db");
-connection.Open();
-
-var sql = "SELECT * FROM city";
-var cities = connection.Query<City>(sql);
-
-foreach (var city in cities)
+app.MapGet("/get-cities", (ICityRepository cityRepository, ITemperatureRepository temperatureRepository) =>
 {
-    Console.WriteLine($"{city.Id} {city.CityName}");
-}
-
-sql = "SELECT * FROM temperature";
-var temps = connection.Query<Temperature>(sql);
-
-foreach (var temp in temps)
-{
-    Console.WriteLine($"{temp.Id} {temp.CityId} {temp.TemperatureValue} {temp.Time}");
-}
-
-app.MapGet("/", () => "Hello World!");
+    foreach(City city in cityRepository.GetCities())
+    {
+        Console.WriteLine($"{city.Id} {city.CityName}");
+    }
+});
 
 app.Run();
