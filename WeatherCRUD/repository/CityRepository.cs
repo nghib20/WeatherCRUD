@@ -11,7 +11,7 @@ namespace WeatherCRUD.repository
 
         City? GetCityByName(string cityName);
         
-        void AddCity(City city);
+        City AddCity(City city);
         
         void DeleteCity(string cityName);
     }
@@ -26,11 +26,15 @@ namespace WeatherCRUD.repository
             _dbConnection.Open();
         }
 
-        public void AddCity(City city)
+        public City AddCity(City city)
         {
-            string query = "INSERT INTO city (id, city_name) VALUES (@Id, @CityName)";
+            string query = "INSERT INTO city (city_name) VALUES (@CityName); SELECT LAST_INSERT_ID();";
 
-            _dbConnection.Execute(query, city);
+            long insertedId = _dbConnection.ExecuteScalar<long>(query, city);
+
+            city.Id = insertedId;
+
+            return city;
         }
 
         public void DeleteCity(string cityName)
