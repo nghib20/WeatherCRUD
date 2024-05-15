@@ -1,0 +1,17 @@
+﻿@WeatherCRUD_HostAddress = https://localhost:7267
+
+GET {{WeatherCRUD_HostAddress}}/get-cities
+
+###
+
+DELETE {{WeatherCRUD_HostAddress}}/delete-city/Tbilisi
+
+###
+
+POST {{WeatherCRUD_HostAddress}}/get-temp-for-city/Tbilisi
+
+###
+
+GET {{WeatherCRUD_HostAddress}}/get-temps-by-city-and-range/Tbilisi/2024-05-15T00:00:00/2024-05-15T16:44:10
+
+###
