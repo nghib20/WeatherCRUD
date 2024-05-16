@@ -57,7 +57,7 @@ namespace WeatherCRUD.Service
         public async Task<WeatherResponse> GetWeather(WeatherApiRequest request)
         {
             string responseString = "Old city detected. Not adding to city repository.";
-            WeatherApiResponse apiResponse = await weatherApiClient.GetWeather(request);
+            WeatherApiResponse apiResponse = await weatherApiClient.GetWeatherFromApi(request);
 
             if( apiResponse == null )
             {

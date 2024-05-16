@@ -5,7 +5,7 @@ namespace WeatherCRUD.Service
 {
     public interface IWeatherApiClient
     {
-        Task<WeatherApiResponse> GetWeather(WeatherApiRequest request);
+        Task<WeatherApiResponse> GetWeatherFromApi(WeatherApiRequest request);
     }
 
     public class WeatherApiClient : IWeatherApiClient
@@ -19,7 +19,7 @@ namespace WeatherCRUD.Service
             API_KEY = config["API_KEY"];
         }
 
-        public async Task<WeatherApiResponse> GetWeather(WeatherApiRequest request)
+        public async Task<WeatherApiResponse> GetWeatherFromApi(WeatherApiRequest request)
         {
             string url = "data/2.5/weather?q=" + request.CityName + "&appid=" + API_KEY + "&units=metric";
             HttpResponseMessage response = await _client.GetAsync(url);
