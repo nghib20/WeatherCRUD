@@ -1,0 +1,12 @@
+﻿CREATE TABLE city (
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+	city_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE temperature (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    city_id BIGINT,
+    temperature DOUBLE,
+    time TIMESTAMP,
+    FOREIGN KEY (city_id) REFERENCES city (id)
+);

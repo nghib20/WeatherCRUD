@@ -5,7 +5,12 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherCRUD", "WeatherCRUD\WeatherCRUD.csproj", "{E50C630A-91BA-4784-8597-A14DD6AD6C20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherCRUDTest", "WeatherCRUDTest\WeatherCRUDTest.csproj", "{B65483EB-CF56-4DD0-B0CE-8850E0E20899}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherCRUDTest", "WeatherCRUDTest\WeatherCRUDTest.csproj", "{B65483EB-CF56-4DD0-B0CE-8850E0E20899}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{24989C1A-1F91-4E2B-B0AA-BE9B1DC04C0B}"
+	ProjectSection(SolutionItems) = preProject
+		table_script.sql = table_script.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
