@@ -13,14 +13,17 @@ builder.Configuration.AddJsonFile("appsettings.json");
 
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
-// API client for OpenWeatherMap
-builder.Services.AddSingleton<IWeatherApiClient>(provider =>
-{
-    return new WeatherApiClient(httpClient: getHttpClient(), builder.Configuration);
-});
-
 builder.Services.AddSingleton<ICityRepository, CityRepository>();
 builder.Services.AddSingleton<ITemperatureRepository, TemperatureRepository>();
+
+// API client for OpenWeatherMap
+builder.Services.AddHttpClient<IWeatherApiClient, WeatherApiClient>(client =>
+{
+    string url = "https://api.openweathermap.org/";
+    client.BaseAddress = new Uri(url);
+    client.DefaultRequestHeaders.Accept.Clear();
+    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+});
 builder.Services.AddSingleton<IWeatherService, WeatherService>();
 
 var app = builder.Build();
@@ -53,23 +56,6 @@ app.MapPost("/get-temp-for-city/{cityName}", async (string cityName, IWeatherSer
 
 app.Run();
 
-HttpClient getHttpClient()
-{
-
-    string url = "https://api.openweathermap.org/";
-
-    HttpClient client = new()
-    {
-        BaseAddress = new Uri(url)
-
-    };
-
-    client.DefaultRequestHeaders.Accept.Clear();
-    client.DefaultRequestHeaders.Accept.Add(
-        new MediaTypeWithQualityHeaderValue("application/json"));
-    return client;
-}
-
 /*
  * maps column names to class fields
  */
@@ -97,3 +83,5 @@ void setUpMappings()
                         .OfType<ColumnAttribute>()
                         .Any(attr => attr.Name == columnName))));
 }
+
+public partial class WeatherController { }
