@@ -35,6 +35,7 @@ namespace ITest
             var addCityResponse2 = await _client.PostAsync($"/get-temp-for-city/{city2}", null);
             var getCitiesResponse = await _client.GetAsync("/get-cities");
 
+            // Assert
             Assert.That(addCityResponse1.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             string responseString1 = await addCityResponse1.Content.ReadAsStringAsync();
             var weatherResponse1 = JsonConvert.DeserializeObject<WeatherResponse>(responseString1);
